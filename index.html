@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://furqan-sial.github.io/FS-Creative-Corner.github.io/og.png">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://furqan-sial.github.io/FS-Creative-Corner.github.io/#website", "url": "https://furqan-sial.github.io/FS-Creative-Corner.github.io/", "name": "FS Creative Corner", "alternateName": ["Furqan Sial", "Furqan Sial Portfolio"], "publisher": {"@id": "https://furqan-sial.github.io/FS-Creative-Corner.github.io/#org"}}, {"@type": "Organization", "@id": "https://furqan-sial.github.io/FS-Creative-Corner.github.io/#org", "name": "FS Creative Corner", "url": "https://furqan-sial.github.io/FS-Creative-Corner.github.io/fs-creative-corner.html", "logo": "https://furqan-sial.github.io/FS-Creative-Corner.github.io/logo.png", "image": "https://furqan-sial.github.io/FS-Creative-Corner.github.io/og.png", "description": "Creative agency focused on the intersection of data-driven strategy and digital design: websites, brand identities and creative direction.", "email": "fscreativecorner@gmail.com", "founder": {"@id": "https://furqan-sial.github.io/FS-Creative-Corner.github.io/#person"}, "address": {"@type": "PostalAddress", "addressLocality": "Lahore", "addressCountry": "PK"}}, {"@type": "Person", "@id": "https://furqan-sial.github.io/FS-Creative-Corner.github.io/#person", "name": "Furqan Sial", "jobTitle": "Data Analyst & Creative Strategist", "url": "https://furqan-sial.github.io/FS-Creative-Corner.github.io/", "image": "https://furqan-sial.github.io/FS-Creative-Corner.github.io/og.png", "address": {"@type": "PostalAddress", "addressLocality": "Lahore", "addressCountry": "PK"}, "worksFor": {"@id": "https://furqan-sial.github.io/FS-Creative-Corner.github.io/#org"}, "knowsAbout": ["Data analysis", "SQL", "Python", "R", "Power BI", "SPSS"], "sameAs": ["https://github.com/furqan-sial", "https://www.linkedin.com/in/furqan-sial-986b673b9/", "https://www.instagram.com/furqan_sial_/"]}]}</script>
 <!-- PASTE YOUR GOOGLE SEARCH CONSOLE VERIFICATION TAG BELOW THIS LINE -->
-<meta name="google-site-verification" content="cF-cv2XLfx7sZW5mA99ND0GrdUNoJwo-6wie1oakCSU" />
+
 <title>FS Creative Corner | Furqan Sial, Data Analyst in Lahore</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -471,6 +471,9 @@ var FORMSPREE_URL="";  /* example: "https://formspree.io/f/abcdwxyz" */
 var WEB3FORMS_KEY="90b50529-0a69-4920-91a4-2505f7e80ca6";  /* example: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" */
 /* If both are empty, the form falls back to opening the visitor's email app. */
 var MY_EMAIL="fscreativecorner@gmail.com";
+/* OPTIONAL premium HTML notification emails via EmailJS: fill all three to switch it on (otherwise Web3Forms above is used) */
+var EMAILJS_SERVICE_ID="service_uo7zk1a",EMAILJS_TEMPLATE_ID="5xzw8s9",EMAILJS_PUBLIC_KEY="txk64UUEaycj30Nux";
+var USE_EJS=function(){return !!(EMAILJS_SERVICE_ID&&EMAILJS_TEMPLATE_ID&&EMAILJS_PUBLIC_KEY)};
 var msg=$("#msg"),sendBtn=$("#send");
 $("#form").addEventListener("submit",async function(ev){
 ev.preventDefault();msg.className="";
@@ -480,19 +483,22 @@ if($("#hp").value){msg.textContent="Thank you. Your message has been sent.";retu
 var text=note||"(No message written)";
 function ok(){msg.textContent="Thank you, "+name.split(" ")[0]+". Your message has been sent and I’ll reply soon.";$("#form").reset()}
 function fail(){msg.className="err";msg.innerHTML="Couldn’t send right now. Please email me directly at <a href=\"mailto:"+MY_EMAIL+"\" style=\"text-decoration:underline\">"+MY_EMAIL+"</a>."}
-if(!FORMSPREE_URL&&!WEB3FORMS_KEY){
+if(!USE_EJS()&&!FORMSPREE_URL&&!WEB3FORMS_KEY){
 window.location.href="mailto:"+MY_EMAIL+"?subject="+encodeURIComponent("Portfolio enquiry: "+kind)+"&body="+encodeURIComponent("Name: "+name+"\nEmail: "+email+"\nAbout: "+kind+"\n\n"+text);
 msg.textContent="Opening your email app…";return}
 sendBtn.disabled=true;msg.textContent="Sending…";
 try{
 var r,d;
-if(FORMSPREE_URL){
+async function w3(){
+var rr=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:"New enquiry: "+kind+" from "+name,from_name:"FS Creative Corner Website",replyto:email,name:name,email:email,topic:kind,message:text,botcheck:""})});
+var dd=await rr.json();if(dd&&dd.success)ok();else fail()}
+if(USE_EJS()){
+try{r=await fetch("https://api.emailjs.com/api/v1.0/email/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({service_id:EMAILJS_SERVICE_ID,template_id:EMAILJS_TEMPLATE_ID,user_id:EMAILJS_PUBLIC_KEY,template_params:{name:name,email:email,reply_to:email,topic:kind,message:text,time:new Date().toUTCString(),site:SITE_URL}})})}catch(e){r=null}
+if(r&&r.ok)ok();else if(WEB3FORMS_KEY)await w3();else fail();
+}else if(FORMSPREE_URL){
 r=await fetch(FORMSPREE_URL,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({name:name,email:email,topic:kind,message:text})});
 if(r.ok)ok();else fail();
-}else{
-r=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:"Portfolio enquiry: "+kind,from_name:name,name:name,email:email,topic:kind,message:text,botcheck:""})});
-d=await r.json();if(d&&d.success)ok();else fail();
-}
+}else{await w3()}
 }catch(e){fail()}
 sendBtn.disabled=false;
 });
