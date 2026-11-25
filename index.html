@@ -426,7 +426,7 @@ footer{padding-left:1.25rem;padding-right:1.25rem;line-height:1.9;letter-spacing
 (function(){
 var $=function(s){return document.querySelector(s)},$$=function(s){return [].slice.call(document.querySelectorAll(s))};
 var SUPABASE_URL="https://gqcumrbjohyekyloeock.supabase.co"; /* your Supabase project address */
-var SUPABASE_KEY=""; /* paste your Supabase publishable key here. Leave empty to run the site without the database. */
+var SUPABASE_KEY="sb_publishable__14L9L8EfaJzQJpeyvJxqA_oiSGWveJ"; /* paste your Supabase publishable key here. Leave empty to run the site without the database. */
 var lastTracked="";
 function sb(path,opt){opt=opt||{};var h={"apikey":SUPABASE_KEY,"Content-Type":"application/json"};if(SUPABASE_KEY.indexOf("eyJ")===0)h["Authorization"]="Bearer "+SUPABASE_KEY;if(opt.body)h["Prefer"]="return=minimal";return fetch(SUPABASE_URL+"/rest/v1/"+path,{method:opt.method||"GET",headers:h,body:opt.body?JSON.stringify(opt.body):undefined,keepalive:!!opt.body})}
 function deviceType(){var ua=navigator.userAgent||"";if(/bot|crawl|spider|slurp|headless|preview/i.test(ua))return null;if(/ipad|tablet/i.test(ua))return "tablet";if(/mobi|android|iphone/i.test(ua))return "mobile";return "desktop"}
