@@ -541,8 +541,7 @@ $("#flip").addEventListener("click",function(){this.classList.toggle("on")});
 $("#vcf").addEventListener("click",function(){
 var v=["BEGIN:VCARD","VERSION:3.0","N:Sial;Furqan;;;","FN:Furqan Sial","ORG:FS Creative Corner","TITLE:Data Analyst & Creative Strategist","EMAIL;TYPE=INTERNET,WORK:"+MY_EMAIL,"URL:"+SITE_URL,"URL:https://www.linkedin.com/in/furqan-sial-986b673b9/","URL:https://www.instagram.com/furqan_sial_/","ADR;TYPE=WORK:;;;Lahore;Punjab;;Pakistan","NOTE:Same Data. Different Thinking.","END:VCARD"].join("\r\n");
 var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([v],{type:"text/vcard;charset=utf-8"}));a.download="Furqan-Sial.vcf";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000)});
-if(navigator.share){var sb=$("#shr");sb.hidden=false;sb.addEventListener("click",function(){navigator.share({title:"Furqan Sial: Data Analyst & Creative Strategist",text:"Same Data. Different Thinking.",url:SITE_URL}).catch(function(){})})}
-try{fetch("business-card.pdf",{method:"HEAD"}).then(function(r){if(r.ok)$$(".cardpdf").forEach(function(a){a.hidden=false})}).catch(function(){})}catch(e){}
+if(navigator.share){var shrBtn=$("#shr");shrBtn.hidden=false;shrBtn.addEventListener("click",function(){navigator.share({title:"Furqan Sial: Data Analyst & Creative Strategist",text:"Same Data. Different Thinking.",url:SITE_URL}).catch(function(){})})}try{fetch("business-card.pdf",{method:"HEAD"}).then(function(r){if(r.ok)$$(".cardpdf").forEach(function(a){a.hidden=false})}).catch(function(){})}catch(e){}
 /* case studies: images come from the project list; interactive chart uses the real script output */
 if(EMBED[0]&&EMBED[0].img)$("#csimg0").src=EMBED[0].img;
 if(EMBED[1]&&EMBED[1].img)$("#csimg1").src=EMBED[1].img;
